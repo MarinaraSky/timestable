@@ -24,6 +24,10 @@ int main(int argc, char *argv[])
 			printf("Invalid selection\n");
 		}
 	}
+	else
+	{
+		printf("Invalid selection\n");
+	}
 	return 0;
 }
 
@@ -39,9 +43,21 @@ void printTimesTable(int max_number)
 		printf("%8d", i);
 	}
 	printf("\n");
+	for(int i = 0; i <= max_number; i++)
+	{
+		if(i != 0)
+		{
+			printf("%8s", "********");
+		}
+		else
+		{
+			printf("\t");
+		}
+	}
+	printf("\n");
 	for(int i = 1; i <= max_number; i++)
 	{
-		printf("%8d", i);
+		printf("%7d|", i);
 		for(int j = 1; j <= max_number; j++)
 		{
 			printf("%8d", i * j);
