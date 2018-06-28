@@ -10,16 +10,16 @@ int main(int argc, char *argv[])
 	if(argc == 1)
 	{
 		printTimesTable(MAX);
-
 	}
 	if(argc == 2)
 	{
 		int new_max = atoi(argv[1]);
 		if(new_max && new_max <= 32 && new_max >= 1)
+		//if checks that new_max is a number and between 1 and 32
 		{
 			printTimesTable(new_max);
 		}
-		else
+		else //catches if letters or numbers out of range are entered
 		{
 			printf("Invalid selection\n");
 		}
@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
 
 void printTimesTable(int max_number)
 {
+	//Nested for loops to print times tables
 	for(int i = 1; i <= max_number; i++)
 	{
 		if(i == 1)
