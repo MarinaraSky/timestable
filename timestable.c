@@ -8,6 +8,7 @@
 void printTimesTable(int min_number, int max_number);
 void printTimesTableHex(int min_number, int max_number);
 void options(int min_number, int max_number, int in_hex);
+int isValidInput(char argv[]);
 
 int main(int argc, char *argv[])
 {
@@ -30,22 +31,26 @@ int main(int argc, char *argv[])
 		}
 		if(argc == 2 && in_hex == 0) //Means no -h was used
 		{
-			max_number = atoi(argv[1]);
-		}
-		else if(argc == 3 && in_hex == 1)
-		{
-			if(atoi(argv[1]))
+			if(isValidInput(argv[1]))
 			{
 				max_number = atoi(argv[1]);
 			}
-			else
+		}
+		else if(argc == 3 && in_hex == 1)
+		{
+			if(atoi(argv[1]) && isValidInput(argv[1]))
+			{
+				max_number = atoi(argv[1]);
+			}
+			else if(isValidInput(argv[2]))
 			{
 				max_number = atoi(argv[2]);
 			}
 		}
 		else if(argc == 3 && in_hex == 0)
 		{
-			if(atoi(argv[1]) < atoi(argv[2]))
+			if(atoi(argv[1]) < atoi(argv[2]) && isValidInput(argv[1]) && 
+					isValidInput(argv[2]))
 			{
 				min_number = atoi(argv[1]);
 				max_number = atoi(argv[2]);
@@ -63,12 +68,14 @@ int main(int argc, char *argv[])
 		}
 		else if(argc == 4 && in_hex == 1)
 		{
-			if(atoi(argv[1]) && atoi(argv[1]) < atoi(argv[2]))
+			if(atoi(argv[1]) && atoi(argv[1]) < atoi(argv[2]) &&
+					isValidInput(argv[1]) && isValidInput(argv[2]))
 			{
 				min_number = atoi(argv[1]);
 				max_number = atoi(argv[2]);
 			}
-			else if(atoi(argv[2]) < atoi(argv[3]))
+			else if((atoi(argv[2]) < atoi(argv[3])) && isValidInput(argv[2]) && 
+					isValidInput(argv[3]))
 			{
 				min_number = atoi(argv[2]);
 				max_number = atoi(argv[3]);
@@ -95,9 +102,23 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
+int isValidInput(char argv[])
+{
+	int is_valid = 1;
+	for(unsigned int i = 0; i < strlen(argv); i++)
+	{
+		if(argv[i] < '0' || argv[i] >= '9')
+		{
+			is_valid = 0;
+			break;
+		}	
+	}
+	return is_valid;
+}
+
 void options(int min_number, int max_number, int in_hex)
 {
-	if((max_number && max_number <= 32 && min_number >= 1 && max_number >= 1))
+	if((max_number <= 32 && min_number >= 0 && max_number >= 0))
 	//if checks that new_max is a number and between 1 and 32
 	{
 		if(in_hex == 0)
