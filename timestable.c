@@ -28,7 +28,7 @@ int main(
     }
     // Checks are designed to print default table if arguments are wrong
     else if (argc > 1 && argc <= 4) //checks if there are enough arguments
-    {                           // this block parses arguments between max and if -h is enabled
+    { 
         int max_number = MAX;
         int min_number = MIN;
         int in_hex = 0;
@@ -69,7 +69,7 @@ int main(
         }
         options(min_number, max_number, in_hex);
     }
-    else                        //Will catch if to many args are present
+    else //Will catch if to many args are present
     {
         printf("\tWRONG AMOUNT OF ARGUMENTS\n");
         printTimesTable(MIN, MAX);
