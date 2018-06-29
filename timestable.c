@@ -22,74 +22,43 @@ int main(int argc, char *argv[])
 		int max_number = MAX;
 		int min_number = MIN;
 		int in_hex = 0;
+		int valid_nums[2];
+		int number_of_nums = 0;
+
 		for(int i = 0; i < argc; i++)
 		{
 			if(strcmp(argv[i], "-h") == 0)
 			{
 				in_hex = 1;
 			}
-		}
-		if(argc == 2 && in_hex == 0) //Means no -h was used
-		{
-			if(isValidInput(argv[1]))
+			else
 			{
-				max_number = atoi(argv[1]);
+				if(isValidInput(argv[i]))
+				{
+					valid_nums[number_of_nums++] = atoi(argv[i]);
+
+				}
 			}
 		}
-		else if(argc == 3 && in_hex == 1)
+		if(number_of_nums == 1) //Means no -h was used
 		{
-			if(atoi(argv[1]) && isValidInput(argv[1]))
-			{
-				max_number = atoi(argv[1]);
-			}
-			else if(isValidInput(argv[2]))
-			{
-				max_number = atoi(argv[2]);
-			}
+				max_number = valid_nums[0];
+				if(max_number == 0)
+				{
+					min_number = 0;
+				}
 		}
-		else if(argc == 3 && in_hex == 0)
+		else if(number_of_nums == 2)
 		{
-			if(atoi(argv[1]) < atoi(argv[2]) && isValidInput(argv[1]) && 
-					isValidInput(argv[2]))
+			if(valid_nums[0] < valid_nums[1]) 
 			{
-				min_number = atoi(argv[1]);
-				max_number = atoi(argv[2]);
-			}
-			else if(min_number == 0)
-			{
-				min_number = MIN;
-				max_number = MAX;
-				printf("\tBAD ARGUMENTS RESSETING MIN AND MAX\n");
+				min_number = valid_nums[0];
+				max_number = valid_nums[1];
 			}
 			else
 			{
 				printf("\tBAD ARGUMENTS\n");
 			}	
-		}
-		else if(argc == 4 && in_hex == 1)
-		{
-			if(atoi(argv[1]) && atoi(argv[1]) < atoi(argv[2]) &&
-					isValidInput(argv[1]) && isValidInput(argv[2]))
-			{
-				min_number = atoi(argv[1]);
-				max_number = atoi(argv[2]);
-			}
-			else if((atoi(argv[2]) < atoi(argv[3])) && isValidInput(argv[2]) && 
-					isValidInput(argv[3]))
-			{
-				min_number = atoi(argv[2]);
-				max_number = atoi(argv[3]);
-				if(min_number == 0)
-				{
-					min_number = MIN;
-					max_number = MAX;
-					printf("\tBAD ARGUMENTS RESSETING MIN AND MAX\n");
-				}	
-			}
-			else
-			{
-				printf("\tBAD ARGUMENTS\n");
-			}
 		}
 		//options will call the print functions
 		options(min_number, max_number, in_hex);
