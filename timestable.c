@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
 
 void options(int min_number, int max_number, int in_hex)
 {
-	if((max_number && max_number <= 32 && max_number >= 1) || (in_hex == 1))
+	if((max_number && max_number <= 32 && min_number >= 1 && max_number >= 1))
 	//if checks that new_max is a number and between 1 and 32
 	{
 		if(in_hex == 0)
@@ -130,17 +130,17 @@ void printTimesTable(int min_number, int max_number)
 	{
 		if(i != 0)
 		{
-			printf("%8s", "********");
+			printf("\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
 		}
 		else
 		{
-			printf("\t");
+			printf("%10s", "\u2554");
 		}
 	}
 	printf("\n");
 	for(int i = min_number; i <= max_number; i++)
 	{
-		printf("%7d|", i);
+		printf("%7d\u2551", i);
 		for(int j = min_number; j <= max_number; j++)
 		{
 			printf("%8d", i * j);
@@ -163,17 +163,17 @@ void printTimesTableHex(int min_number, int max_number)
 	{
 		if(i != 0)
 		{
-			printf("%8s", "********");
+			printf("\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550");
 		}
 		else
 		{
-			printf("\t");
+			printf("%10s", "\u2554");
 		}
 	}
 	printf("\n");
 	for(int i = min_number; i <= max_number; i++)
 	{
-		printf("%7x|", i);
+		printf("%7x\u2551", i);
 		for(int j = min_number; j <= max_number; j++)
 		{
 			printf("%8x", i * j);
