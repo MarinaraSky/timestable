@@ -21,25 +21,6 @@ int main(int argc, char *argv[])
 		int max_number = MAX;
 		int min_number = MIN;
 		int in_hex = 0;
-		if(argc == 2 && atoi(argv[1]) != 0)
-		{
-			max_number = atoi(argv[1]);
-		}
-		else if((argc == 4) && (atoi(argv[1]) < atoi(argv[2])))
-		{
-			min_number = atoi(argv[1]);
-			max_number = atoi(argv[2]);
-		}
-		else if((argc == 4) && (atoi(argv[2]) < atoi(argv[3])))
-		{
-			printf("test");
-			min_number = atoi(argv[2]);
-			max_number = atoi(argv[3]);
-		}
-		else if(argc == 3  && (atoi(argv[2]) != 0 && in_hex == 1))
-		{
-			max_number = atoi(argv[2]);
-		}
 		for(int i = 0; i < argc; i++)
 		{
 			if(strcmp(argv[i], "-h") == 0)
@@ -47,11 +28,53 @@ int main(int argc, char *argv[])
 				in_hex = 1;
 			}
 		}
+		if(argc == 2 && in_hex == 0) //Means no -h was used
+		{
+			max_number = atoi(argv[1]);
+		}
+		else if(argc == 3 && in_hex == 1)
+		{
+			if(atoi(argv[1]))
+			{
+				max_number = atoi(argv[1]);
+			}
+			else
+			{
+				max_number = atoi(argv[2]);
+			}
+		}
+		else if(argc == 3 && in_hex == 0)
+		{
+			if(atoi(argv[1]) < atoi(argv[2]))
+			{
+				min_number = atoi(argv[1]);
+				max_number = atoi(argv[2]);
+			}
+		}
+		else if(argc == 4 && in_hex == 1)
+		{
+			if(atoi(argv[1]) && atoi(argv[1]) < atoi(argv[2]))
+			{
+				min_number = atoi(argv[1]);
+				max_number = atoi(argv[2]);
+			}
+			else if(atoi(argv[2]) < atoi(argv[3]))
+			{
+				min_number = atoi(argv[2]);
+				max_number = atoi(argv[3]);
+				if(min_number == 0)
+				{
+					min_number = MIN;
+					printf("\tBAD ARGUMENTS RESSETING MIN\n");
+				}	
+			}
+		}
 		//options will call the print functions
 		options(min_number, max_number, in_hex);
 	}
 	else //catches if letters or numbers out of range are entered
 	{
+		printf("\tWRONG ARGUMENTS\n");
 		printTimesTable(MIN, MAX);
 	}
 	return 0;
