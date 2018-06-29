@@ -159,6 +159,8 @@ void printTimesTableHex(
     int max_number)
 {
     //Nested for loops to print times tables
+    printf("USAGE = ./timestable [-h] [[<min>] <max>] Between 0 and 32.\n");
+    printf("\t%s - %d to %d\n", "BASE 10 TABLE", min_number, max_number);
     printf("\t%s - %d to %d\n", "HEX TABLE", min_number, max_number);
     printf("\t");
     for (int i = min_number; i <= max_number; i++)
