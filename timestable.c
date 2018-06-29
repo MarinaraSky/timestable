@@ -8,7 +8,7 @@
 void printTimesTable(int min_number, int max_number);
 void printTimesTableHex(int min_number, int max_number);
 void options(int min_number, int max_number, int in_hex);
-int isValidInput(char argv[]);
+int isValidNumber(char argv[]);
 
 int main(int argc, char *argv[])
 {
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 		int in_hex = 0;
 		int valid_nums[2];
 		int number_of_nums = 0;
-
+		//for loop validates arguments
 		for(int i = 0; i < argc; i++)
 		{
 			if(strcmp(argv[i], "-h") == 0)
@@ -33,14 +33,14 @@ int main(int argc, char *argv[])
 			}
 			else
 			{
-				if(isValidInput(argv[i]))
+				if(isValidNumber(argv[i]))
 				{
 					valid_nums[number_of_nums++] = atoi(argv[i]);
 
 				}
 			}
 		}
-		if(number_of_nums == 1) //Means no -h was used
+		if(number_of_nums == 1) //Found 1 valid number in args
 		{
 				max_number = valid_nums[0];
 				if(max_number == 0)
@@ -48,30 +48,26 @@ int main(int argc, char *argv[])
 					min_number = 0;
 				}
 		}
-		else if(number_of_nums == 2)
+		else if(number_of_nums == 2) //Found 2 valid numbers in args
 		{
 			if(valid_nums[0] < valid_nums[1]) 
 			{
 				min_number = valid_nums[0];
 				max_number = valid_nums[1];
 			}
-			else
-			{
-				printf("\tBAD ARGUMENTS\n");
-			}	
 		}
-		//options will call the print functions
 		options(min_number, max_number, in_hex);
 	}
-	else //catches if letters or numbers out of range are entered
+	else //Will catch if to many args are present
 	{
-		printf("\tWRONG ARGUMENTS\n");
+		printf("\tWRONG AMOUNT OF ARGUMENTS\n");
 		printTimesTable(MIN, MAX);
 	}
 	return 0;
 }
 
-int isValidInput(char argv[])
+int isValidNumber(char argv[])
+//Function is used to determine if args are valid numbers
 {
 	int is_valid = 1;
 	for(unsigned int i = 0; i < strlen(argv); i++)
@@ -88,7 +84,7 @@ int isValidInput(char argv[])
 void options(int min_number, int max_number, int in_hex)
 {
 	if((max_number <= 32 && min_number >= 0 && max_number >= 0))
-	//if checks that new_max is a number and between 1 and 32
+	//if checks that new_max is a number and between 0 and 32
 	{
 		if(in_hex == 0)
 		{
@@ -109,7 +105,8 @@ void options(int min_number, int max_number, int in_hex)
 void printTimesTable(int min_number, int max_number)
 {
 	//Nested for loops to print times tables
-	printf("\t%s - %d to %d\n", "DEFAULT TABLE",min_number,  max_number);
+	printf("USAGE = ./timestable [-h] [[<min>] <max>]\n");
+	printf("\t%s - %d to %d\n", "BASE 10 TABLE",min_number,  max_number);
 	printf("\t");
 	for(int i = min_number; i <= max_number; i++)
 	{
