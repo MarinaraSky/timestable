@@ -50,6 +50,16 @@ int main(int argc, char *argv[])
 				min_number = atoi(argv[1]);
 				max_number = atoi(argv[2]);
 			}
+			else if(min_number == 0)
+			{
+				min_number = MIN;
+				max_number = MAX;
+				printf("\tBAD ARGUMENTS RESSETING MIN AND MAX\n");
+			}
+			else
+			{
+				printf("\tBAD ARGUMENTS\n");
+			}	
 		}
 		else if(argc == 4 && in_hex == 1)
 		{
@@ -65,8 +75,13 @@ int main(int argc, char *argv[])
 				if(min_number == 0)
 				{
 					min_number = MIN;
-					printf("\tBAD ARGUMENTS RESSETING MIN\n");
+					max_number = MAX;
+					printf("\tBAD ARGUMENTS RESSETING MIN AND MAX\n");
 				}	
+			}
+			else
+			{
+				printf("\tBAD ARGUMENTS\n");
 			}
 		}
 		//options will call the print functions
@@ -96,6 +111,7 @@ void options(int min_number, int max_number, int in_hex)
 	}
 	else
 	{
+		printf("\tNUMBERS TOO LOW OR HIGH\n");
 		printTimesTable(MIN, MAX);
 	}
 }
